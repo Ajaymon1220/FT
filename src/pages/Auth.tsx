@@ -123,7 +123,7 @@ function BrandPanel({ title, accent, body }: { title: string; accent: string; bo
           <img alt="AICPA SOC certified" src={badgeAicpa} className="size-10 rounded-full bg-white object-cover" />
           <span className="flex size-10 items-center justify-center rounded-full bg-white p-1"><img alt="ISO 9001:2015 certified" src={badgeIso} className="w-full object-contain" /></span>
         </span>
-        <span>SOC 2 and ISO 9001:2015 certified.<br />Client data is encrypted in transit and at rest.</span>
+        <span>SOC 2 and ISO 9001:2015 certified.<br />Customer data is encrypted in transit and at rest.</span>
       </div>
     </aside>
   );
@@ -358,11 +358,11 @@ export function Login() {
 }
 
 /* ================= Sign up ================= */
-const SIGNUP_STEPS = ["Your firm", "Tax software", "First clients"];
+const SIGNUP_STEPS = ["Your firm", "Tax software", "First customers"];
 const SIGNUP_PANEL = [
-  { title: "Set up your firm", accent: "in three quick steps.", body: "Tell us about your practice, connect your tax software, and bring last year's clients over. Most firms are ready in under five minutes." },
-  { title: "File where you", accent: "already file.", body: "Approved returns push straight into your tax software, and last year's clients come over with their prior-year details." },
-  { title: "Every client gets", accent: "a checklist on day one.", body: "Import last year's backup and each client gets a document checklist drafted from their prior-year return." },
+  { title: "Set up your firm", accent: "in three quick steps.", body: "Tell us about your practice, connect your tax software, and bring last year's customers over. Most firms are ready in under five minutes." },
+  { title: "File where you", accent: "already file.", body: "Approved returns push straight into your tax software, and last year's customers come over with their prior-year details." },
+  { title: "Every customer gets", accent: "a checklist on day one.", body: "Import last year's backup and each customer gets a document checklist drafted from their prior-year return." },
 ];
 
 function Stepper({ at }: { at: number }) {
@@ -434,7 +434,7 @@ export function Signup() {
             <Field id="su-company" label="Firm name" error={errors.company}><TextInput id="su-company" icon={<Building2 size={16} />} value={v.company} onChange={set("company")} placeholder="Mon & Associates CPA" invalid={!!errors.company} autoComplete="organization" /></Field>
 
             <fieldset className="flex flex-col gap-1.5">
-              <legend className="mb-1.5 text-sm leading-5 font-medium text-fg">How many clients do you file for?</legend>
+              <legend className="mb-1.5 text-sm leading-5 font-medium text-fg">How many customers do you file for?</legend>
               <div role="radiogroup" aria-invalid={!!errors.clients || undefined} className="flex flex-wrap gap-2">
                 {CLIENT_RANGES.map((r) => {
                   const on = v.clients === r;
@@ -461,7 +461,7 @@ export function Signup() {
 
       {stage === 1 && (
         <>
-          <Heading title="Which tax software do you file with?" sub="Approved returns are pushed here, and you can bring last year's clients over from it. You can change this later in Settings." />
+          <Heading title="Which tax software do you file with?" sub="Approved returns are pushed here, and you can bring last year's customers over from it. You can change this later in Settings." />
           <SoftwarePicker value={software} onChange={setSoftware} compact />
           <div className="flex flex-col gap-3">
             <PrimaryButton disabled={!software} onClick={() => setStage(2)}>Continue</PrimaryButton>
@@ -472,11 +472,11 @@ export function Signup() {
 
       {stage === 2 && (
         <>
-          <Heading title="Add your first clients" sub={<>Bring last year's clients over from {softwareName}, or start with one by hand.</>} />
+          <Heading title="Add your first customers" sub={<>Bring last year's customers over from {softwareName}, or start with one by hand.</>} />
           <div className="flex flex-col gap-3">
             {[
-              { to: "import" as const, icon: <Upload size={18} />, title: `Import from ${softwareName}`, body: "Upload last year's backup. Each client gets a checklist built from their prior-year return.", tag: "Fastest" },
-              { to: "new-client" as const, icon: <UserPlus size={18} />, title: "Add a client by hand", body: "Enter one client's details and we'll draft their checklist.", tag: "" },
+              { to: "import" as const, icon: <Upload size={18} />, title: `Import from ${softwareName}`, body: "Upload last year's backup. Each customer gets a checklist built from their prior-year return.", tag: "Fastest" },
+              { to: "new-client" as const, icon: <UserPlus size={18} />, title: "Add a customer by hand", body: "Enter one customer's details and we'll draft their checklist.", tag: "" },
             ].map((o) => (
               <button key={o.to} type="button" onClick={() => finish(o.to)}
                 className="group flex items-start gap-3 rounded-2xl border border-line p-4 text-left transition-[border-color,box-shadow] hover:border-brand hover:shadow-[0_8px_24px_-12px_rgba(27,77,62,0.4)]">

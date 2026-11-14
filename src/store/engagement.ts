@@ -263,7 +263,7 @@ export const useEngagement = create<State>((set, get) => {
 
     sendInvitation: (clientId, email, reminders) => {
       set((s) => ({ engagements: { ...s.engagements, [clientId]: { ...s.engagements[clientId], invited: true, invitedEmail: email, reminders } } }));
-      touchClient(clientId, { status: "Client Invited" });
+      touchClient(clientId, { status: "Customer Invited" });
       get().showToast(`Invitation sent to ${email}. Reminders ${reminderText(reminders)}.`);
     },
 

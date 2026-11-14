@@ -46,10 +46,10 @@ function Comments({ clientId, item }: { clientId: string; item: ChecklistItem })
       {open && (
         <div className="absolute top-8 left-0 z-30 w-[320px] rounded-lg bg-surface p-2 shadow-[0_8px_24px_rgba(0,0,0,0.14)]">
           <div className="flex max-h-60 flex-col gap-2 overflow-auto">
-            {n === 0 && <p className="px-2 py-3 text-sm text-muted">No comments yet. Start the thread with your client.</p>}
+            {n === 0 && <p className="px-2 py-3 text-sm text-muted">No comments yet. Start the thread with your customer.</p>}
             {item.comments.map((c) => (
               <div key={c.id} className="rounded-md px-2 py-1.5">
-                <p className="text-xs text-muted"><span className="font-medium text-fg">{c.author}{c.fromClient && " (Client)"}</span> {c.at}</p>
+                <p className="text-xs text-muted"><span className="font-medium text-fg">{c.author}{c.fromClient && " (Customer)"}</span> {c.at}</p>
                 <p className="mt-1 text-sm text-fg">{c.text}</p>
               </div>
             ))}
@@ -99,7 +99,7 @@ function RequestModal({ clientId, items, initialId, onClose }: { clientId: strin
 
   const submit = () => {
     if (!itemId) return setError("Choose the document you want to request.");
-    if (!note.trim()) return setError("Add a note so the client knows exactly what to upload.");
+    if (!note.trim()) return setError("Add a note so the customer knows exactly what to upload.");
     requestDocument(clientId, itemId, note.trim(), rem);
     onClose();
   };
@@ -137,7 +137,7 @@ function InviteModal({ clientId, onClose }: { clientId: string; onClose: () => v
   const [error, setError] = useState("");
 
   const submit = () => {
-    if (!/^\S+@\S+\.\S+$/.test(email)) return setError("Enter a valid email address for the client.");
+    if (!/^\S+@\S+\.\S+$/.test(email)) return setError("Enter a valid email address for the customer.");
     if (rem.enabled && !rem.dueDate) return setError("Choose a due date so reminders know when to stop.");
     sendInvitation(clientId, email, rem);
     onClose();
@@ -145,7 +145,7 @@ function InviteModal({ clientId, onClose }: { clientId: string; onClose: () => v
   const row = "grid grid-cols-[96px_1fr] items-center border-b border-line text-sm";
 
   return (
-    <Modal title="This is what your client will see" onClose={onClose} width={692}
+    <Modal title="This is what your customer will see" onClose={onClose} width={692}
       footer={<><Button variant="outline" onClick={onClose}>Cancel</Button><Button onClick={submit}>Send</Button></>}>
       <div className="flex flex-col gap-5">
         <div className="overflow-hidden rounded-md border border-line">
@@ -305,7 +305,7 @@ export function Checklist({ clientId }: { clientId: string }) {
 
   const copyLink = async () => {
     const url = `${window.location.href.split("#")[0]}#client-${clientId}-checklist`;
-    try { await navigator.clipboard.writeText(url); showToast("Client checklist link copied"); } catch { showToast(url); }
+    try { await navigator.clipboard.writeText(url); showToast("Customer checklist link copied"); } catch { showToast(url); }
   };
 
   const prepLabel = client?.status === "Approved" || client?.status === "Pushed" ? client.status : !invited ? "Not invited" : inIntake ? (waiting.length ? "Pending Docs" : "Ready for prep") : engagement.stage === "Preparation" ? "Prep Started" : "Ready for Review";
@@ -438,7 +438,7 @@ export function Checklist({ clientId }: { clientId: string }) {
                       <div className="flex items-center px-3" title={it.rejectReason}><StatusPill status={it.status} /></div>
                       <div className="flex items-center px-2">
                         <button type="button" disabled={!canReview} onClick={() => target && go({ name: "review", clientId, itemId: target })}
-                          title={canReview ? undefined : invited ? "Nothing uploaded yet" : "Available once the client uploads"}
+                          title={canReview ? undefined : invited ? "Nothing uploaded yet" : "Available once the customer uploads"}
                           className="rounded-md border border-line px-3 py-1 text-xs text-fg hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50">
                           {it.status === "Validated" ? "View Data" : "Review Data"}
                         </button>
@@ -462,7 +462,7 @@ export function Checklist({ clientId }: { clientId: string }) {
                 <select id="new-item-cat" value={newCat} onChange={(e) => setNewCat(e.target.value)} className="h-9 rounded-3xl border border-line bg-brand-soft/40 px-3 text-sm text-brand outline-none">
                   {checklistCategories.map((c) => <option key={c}>{c}</option>)}
                 </select>
-                <input id="new-item-note" autoFocus value={newNote} onChange={(e) => setNewNote(e.target.value)} placeholder="Note for the client, e.g. You mentioned selling stock." className={`${inputCls} h-9 min-w-[200px] flex-1`} />
+                <input id="new-item-note" autoFocus value={newNote} onChange={(e) => setNewNote(e.target.value)} placeholder="Note for the customer, e.g. You mentioned selling stock." className={`${inputCls} h-9 min-w-[200px] flex-1`} />
                 <Button onClick={() => { addItem(clientId, newCat, newNote.trim()); setAdding(false); setNewNote(""); showToast(`${newCat} added to the checklist`); }}>
                   <span className="flex items-center gap-1.5"><Save size={14} /> Save</span>
                 </Button>
@@ -501,7 +501,7 @@ export function Checklist({ clientId }: { clientId: string }) {
       )}
 
       {preview && (
-        <Modal title={preview.parentId ? `${preview.name} · ${preview.note}` : preview.name} description={invited ? "Nothing has been uploaded for this item yet." : "The client sees this item after you send the invitation."} onClose={() => setPreview(null)}
+        <Modal title={preview.parentId ? `${preview.name} · ${preview.note}` : preview.name} description={invited ? "Nothing has been uploaded for this item yet." : "The customer sees this item after you send the invitation."} onClose={() => setPreview(null)}
           footer={invited ? <Button onClick={() => { setPreview(null); setRequest({ itemId: preview.id }); }}>Request document</Button> : <Button onClick={() => { setPreview(null); setInviting(true); }}>Send Invitation</Button>}>
           <p className="text-sm text-muted">{preview.aiSuggested ? "Suggested because it appeared on last year's return." : "Added by your firm."}</p>
         </Modal>

@@ -22,7 +22,7 @@ function Cell({ id, value, filled, wide }: { id: string; value?: string; filled?
       aria-label={id.replace(/-/g, " ")}
       value={masked ? "••••••••" : v}
       readOnly={!canEdit || masked}
-      title={masked ? "Hidden: you don't have access to client contact details" : !canEdit ? "View only" : undefined}
+      title={masked ? "Hidden: you don't have access to customer contact details" : !canEdit ? "View only" : undefined}
       onChange={(e) => setV(e.target.value)}
       className={`h-7 min-w-0 px-1.5 text-sm text-fg outline-none focus:ring-1 focus:ring-brand ${wide ? "flex-[2]" : "flex-1"} ${filled || v ? "bg-cell-filled" : "bg-cell-empty"}`}
     />
@@ -197,7 +197,7 @@ export function Worksheet({ clientId }: { clientId: string }) {
                         <span className={cell}>{ok ? `$ ${field(d, "Box 2") ?? "--"}` : "—"}</span>
                         <span className={cell}>{ok ? (field(d, "Box 17") ? `$ ${field(d, "Box 17")}` : "Fetch in review") : "—"}</span>
                         {d.kind === "slot" && !d.fileName ? (
-                          <span className="truncate px-2 py-1.5 text-xs text-muted">Waiting on client</span>
+                          <span className="truncate px-2 py-1.5 text-xs text-muted">Waiting on customer</span>
                         ) : (
                           <a href={href({ name: "review", clientId, itemId: d.id })} className="flex items-center gap-1.5 truncate px-2 py-1.5 text-xs text-brand hover:underline" title="Open the source document">
                             <Link2 size={12} className="shrink-0" /> {d.fileName ?? d.name}{ok ? "" : " · needs review"}
@@ -212,7 +212,7 @@ export function Worksheet({ clientId }: { clientId: string }) {
                     <Row key={p.id}>
                       <L>{p.name.replace(/.*\((.*)\)/, "$1")}</L>
                       <span className={`flex flex-1 items-center px-2 text-sm ${p.status === "Validated" ? "bg-cell-filled text-fg" : "bg-cell-empty text-muted"}`}>
-                        {p.status === "Pending" ? "Waiting on client" : p.status}
+                        {p.status === "Pending" ? "Waiting on customer" : p.status}
                       </span>
                       {p.status === "Pending" && (
                         <button type="button" onClick={() => go({ name: "client", clientId, section: "checklist" })} className="px-3 text-xs text-brand hover:underline">Request</button>

@@ -14,35 +14,35 @@ export interface TaxSoftware {
 
 export const TAX_SOFTWARE: TaxSoftware[] = [
   {
-    id: "lacerte", name: "Lacerte", vendor: "Intuit", exportFile: "Client backup (.zip)",
-    exportSteps: ["Open Lacerte and choose last year's tax year.", "Back up the client files you want to bring over (individual and business modules).", "Zip the backup folder and upload it here."],
+    id: "lacerte", name: "Lacerte", vendor: "Intuit", exportFile: "Customer backup (.zip)",
+    exportSteps: ["Open Lacerte and choose last year's tax year.", "Back up the customer files you want to bring over (individual and business modules).", "Zip the backup folder and upload it here."],
   },
   {
-    id: "proconnect", name: "ProConnect Tax", vendor: "Intuit", exportFile: "Client list export (.csv)",
-    exportSteps: ["Open ProConnect Tax and go to your client list.", "Select the clients for last year and export them.", "Upload the exported file here."],
+    id: "proconnect", name: "ProConnect Tax", vendor: "Intuit", exportFile: "Customer list export (.csv)",
+    exportSteps: ["Open ProConnect Tax and go to your customer list.", "Select the customers for last year and export them.", "Upload the exported file here."],
   },
   {
-    id: "proseries", name: "ProSeries", vendor: "Intuit", exportFile: "Client backup (.zip)",
-    exportSteps: ["Open ProSeries for last year.", "Back up the client files you want to bring over.", "Zip the backup and upload it here."],
+    id: "proseries", name: "ProSeries", vendor: "Intuit", exportFile: "Customer backup (.zip)",
+    exportSteps: ["Open ProSeries for last year.", "Back up the customer files you want to bring over.", "Zip the backup and upload it here."],
   },
   {
-    id: "drake", name: "Drake Tax", vendor: "Drake Software", exportFile: "Client backup (.zip)",
+    id: "drake", name: "Drake Tax", vendor: "Drake Software", exportFile: "Customer backup (.zip)",
     exportSteps: ["Open Drake Tax for last year.", "Create a backup of the returns you want to bring over.", "Zip the backup and upload it here."],
   },
   {
-    id: "ultratax", name: "UltraTax CS", vendor: "Thomson Reuters", exportFile: "Client backup (.zip)",
-    exportSteps: ["Open UltraTax CS for last year.", "Back up the clients you want to bring over.", "Zip the backup and upload it here."],
+    id: "ultratax", name: "UltraTax CS", vendor: "Thomson Reuters", exportFile: "Customer backup (.zip)",
+    exportSteps: ["Open UltraTax CS for last year.", "Back up the customers you want to bring over.", "Zip the backup and upload it here."],
   },
   {
     id: "cch-axcess", name: "CCH Axcess Tax", vendor: "Wolters Kluwer", exportFile: "Return export (.zip or .csv)",
-    exportSteps: ["Open CCH Axcess Tax for last year.", "Export the returns or client list you want to bring over.", "Upload the export here."],
+    exportSteps: ["Open CCH Axcess Tax for last year.", "Export the returns or customer list you want to bring over.", "Upload the export here."],
   },
   {
-    id: "cch-prosystem", name: "CCH ProSystem fx", vendor: "Wolters Kluwer", exportFile: "Client backup (.zip)",
-    exportSteps: ["Open ProSystem fx Tax for last year.", "Back up or export the clients you want to bring over.", "Upload the file here."],
+    id: "cch-prosystem", name: "CCH ProSystem fx", vendor: "Wolters Kluwer", exportFile: "Customer backup (.zip)",
+    exportSteps: ["Open ProSystem fx Tax for last year.", "Back up or export the customers you want to bring over.", "Upload the file here."],
   },
   {
-    id: "atx", name: "ATX", vendor: "Wolters Kluwer", exportFile: "Client backup (.zip)",
+    id: "atx", name: "ATX", vendor: "Wolters Kluwer", exportFile: "Customer backup (.zip)",
     exportSteps: ["Open ATX for last year.", "Back up the returns you want to bring over.", "Zip the backup and upload it here."],
   },
 ];

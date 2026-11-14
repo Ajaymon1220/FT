@@ -58,7 +58,7 @@ Palette: **forest green** primary (`#1B4D3E`), **cream** light support colors (`
 | `cream-deep` | `#f6efc4` | Stronger cream accents |
 | `sage` | `#dfe9df` | Soft green fills |
 | `sage-deep` | `#c4d7c9` | Sage borders / emphasis |
-| `nav-active` | `#f9f6e6` | Active rail / client-panel item |
+| `nav-active` | `#f9f6e6` | Active rail / customer-panel item |
 | `section` | `#fcfaf0` | Section header bands |
 | `banner` | `#f4efcf` | Prep banner |
 
@@ -106,8 +106,8 @@ Tailwind's 4px scale. Common values: `gap-1/2/3`, `px-2` (compact), `px-3` (inpu
 |---|---|
 | Main sidebar (dashboard shell) | 220px wide (≥ `md`), stacks on top below `md` |
 | V2 icon rail | 55px wide, hidden below `md` |
-| Client panel | 200px wide (≥ `md`) |
-| Client switcher / row height | 48px / 36px |
+| Customer panel | 200px wide (≥ `md`) |
+| Customer switcher / row height | 48px / 36px |
 | Top bar | sticky, `z-20`, `px-6 py-3`, bottom border |
 
 Breakpoint: **`md` (768px)** is the single responsive switch – vertical sidebars become horizontal strips.
@@ -138,7 +138,7 @@ Borders are always 1px `line` unless stated. Shadows: modal `0 10px 30px rgba(0,
 
 ## 2. Iconography
 
-- **Custom SVGs** exported from Figma in `src/assets/` – `icons/` (16px app icons), `v2/` and `ws/` (client workspace rail/nav), `logo/` (wordmark layers).
+- **Custom SVGs** exported from Figma in `src/assets/` – `icons/` (16px app icons), `v2/` and `ws/` (customer workspace rail/nav), `logo/` (wordmark layers).
 - Central registry: [src/components/icons.ts](src/components/icons.ts) exports `icons` (`add`, `bellDot`, `calendarPlus`, `chevronsUpDown`, `clock`, `clockActive`, `download`, `ellipsis`, `info`, `navClients`, `navDashboard`, `navSettings`, `navWorkspace`, `search`, `star`, `tag`, `user`).
 - **lucide-react** is used for utility glyphs (e.g. `X` in modals).
 - Standard size: `size-4` (16px); drag/drop art `size-6`.
@@ -166,7 +166,7 @@ States: hover (`brand/90` or `surface-grey`), `disabled` → 50% opacity + `not-
 
 ```tsx
 <Button onClick={save}>Save</Button>
-<Button variant="outline" icon={icons.add}>Add client</Button>
+<Button variant="outline" icon={icons.add}>Add customer</Button>
 ```
 
 ### 3.2 Tabs — [Tabs.tsx](src/components/Tabs.tsx)
@@ -176,7 +176,7 @@ Active = `brand`, semibold, 2px bottom rule; inactive = `muted`, medium, hover `
 
 ### 3.3 Sidebar — [Sidebar.tsx](src/components/Sidebar.tsx)
 
-220px app navigation: logo, nav list (Dashboard, Workspace, Clients, Settings), user card at bottom (hidden below `md`). Active item: `bg-brand-soft text-sidebar-accent` + `aria-current="page"`; inactive: `text-muted`, hover `brand-soft/60`. Nav items are hash links (`#dashboard`, …).
+220px app navigation: logo, nav list (Dashboard, Workspace, Customers, Settings), user card at bottom (hidden below `md`). Active item: `bg-brand-soft text-sidebar-accent` + `aria-current="page"`; inactive: `text-muted`, hover `brand-soft/60`. Nav items are hash links (`#dashboard`, …).
 
 ### 3.4 TopBar — [TopBar.tsx](src/components/TopBar.tsx)
 
@@ -199,18 +199,18 @@ Sticky page header: title (`text-base`, medium) on the left; **Ask Ai** pill and
 | `Switch({ checked, onChange, id? })` | 36×20 toggle, `role="switch"`; on = `brand`, off = `line`. |
 
 ```tsx
-<Modal title="Invite client" onClose={close} footer={<Button onClick={send}>Send</Button>}>
+<Modal title="Invite customer" onClose={close} footer={<Button onClick={send}>Send</Button>}>
   <Label htmlFor="email" required>Email</Label>
   <input id="email" className={inputCls} />
 </Modal>
 ```
 
-### 3.7 Client workspace shell — [client/ClientShell.tsx](src/components/client/ClientShell.tsx)
+### 3.7 Customer workspace shell — [client/ClientShell.tsx](src/components/client/ClientShell.tsx)
 
-Layout for a single client: **Rail (55px) → ClientPanel (200px) → main**.
+Layout for a single customer: **Rail (55px) → ClientPanel (200px) → main**.
 
 - **Rail** – icon-only nav (Dashboard, Workspace, Inbox with count badge, Team, Files) + user chip.
-- **ClientSwitcher** – 48px dropdown listing all clients (uses `usePopover`); current client highlighted in `brand`.
+- **ClientSwitcher** – 48px dropdown listing all customers (uses `usePopover`); current customer highlighted in `brand`.
 - **ClientPanel** – Checklist / Worksheet section nav + dashed-border drag-and-drop upload zone (pdf, jpeg, png).
 - **ClientTopBar** – breadcrumb `Workspace / {client}` + Ask Ai + bell.
 
@@ -237,7 +237,7 @@ These are defined inside page files and are candidates to promote into shared co
 
 | Type | Values | Defined in |
 |---|---|---|
-| `ClientStatus` | Draft · Client Invited · Pending Docs · Prep Started · Ready for Review · Approved · Pushed | [mocks/clients.ts](src/mocks/clients.ts) — colours in [lib/workflow.ts](src/lib/workflow.ts) `STAGES` |
+| `ClientStatus` | Draft · Customer Invited · Pending Docs · Prep Started · Ready for Review · Approved · Pushed | [mocks/clients.ts](src/mocks/clients.ts) — colours in [lib/workflow.ts](src/lib/workflow.ts) `STAGES` |
 | `ItemStatus` | Pending · Needs Review · Validated · Rejected | [mocks/checklists.ts](src/mocks/checklists.ts) |
 
 Always render these through the status color pairs in §1.2 rather than ad-hoc colors.

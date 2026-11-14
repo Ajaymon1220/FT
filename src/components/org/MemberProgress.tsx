@@ -69,12 +69,12 @@ export function MemberProgress({ member, onClose }: { member: Member; onClose: (
               <span className="tnum absolute inset-0 flex items-center justify-center text-sm font-medium text-fg">{finished}%</span>
             </div>
             <div className="flex min-w-0 flex-col gap-1">
-              <p className="text-sm font-medium text-fg">{data.done.length} of {data.theirs.length} client{data.theirs.length === 1 ? "" : "s"} past their step</p>
+              <p className="text-sm font-medium text-fg">{data.done.length} of {data.theirs.length} customer{data.theirs.length === 1 ? "" : "s"} past their step</p>
               <p className="text-xs text-muted">
                 {data.type === "Admin" ? "Admins finish when a return is pushed to tax software." : data.type === "Reviewer" ? "Reviewers finish when a return is approved." : "Preparers finish when the worksheet goes to review."}
               </p>
               <Progress done={data.docs[0]} total={data.docs[1]} className="mt-1" />
-              <span className="text-[11px] text-muted">Documents in across their clients</span>
+              <span className="text-[11px] text-muted">Documents in across their customers</span>
             </div>
           </section>
 
@@ -90,7 +90,7 @@ export function MemberProgress({ member, onClose }: { member: Member; onClose: (
           {/* Stage distribution */}
           {data.theirs.length > 0 && (
             <section className="flex flex-col gap-2">
-              <h3 className="text-sm font-medium text-fg">Where their clients are</h3>
+              <h3 className="text-sm font-medium text-fg">Where their customers are</h3>
               <div className="flex h-2.5 overflow-hidden rounded-full bg-grid" role="img" aria-label={data.byStage.filter((s) => s.n).map((s) => `${s.status}: ${s.n}`).join(", ")}>
                 {data.byStage.filter((s) => s.n).map((s) => <span key={s.status} className={`${s.dot} h-full border-r border-surface last:border-r-0`} style={{ width: `${(s.n / data.theirs.length) * 100}%` }} title={`${s.status}: ${s.n}`} />)}
               </div>
@@ -104,8 +104,8 @@ export function MemberProgress({ member, onClose }: { member: Member; onClose: (
 
           {/* Client list */}
           <section className="flex flex-col gap-2">
-            <h3 className="text-sm font-medium text-fg">Clients · {data.theirs.length}</h3>
-            {data.theirs.length === 0 && <p className="rounded-lg bg-surface-grey px-3 py-4 text-sm text-muted">No clients assigned yet. Assign them from the Assignee column in Workspace.</p>}
+            <h3 className="text-sm font-medium text-fg">Customers · {data.theirs.length}</h3>
+            {data.theirs.length === 0 && <p className="rounded-lg bg-surface-grey px-3 py-4 text-sm text-muted">No customers assigned yet. Assign them from the Assignee column in Workspace.</p>}
             <ul className="flex flex-col divide-y divide-line rounded-xl border border-line">
               {data.theirs.map((c) => {
                 const turn = waitingOn(member, c.status);

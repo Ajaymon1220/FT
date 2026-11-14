@@ -15,7 +15,7 @@ function useAccessState() {
   return { currentId, roleAccess, memberAccess };
 }
 
-const GROUPS = ["Clients", "Preparation", "Review & filing", "Firm"] as const;
+const GROUPS = ["Customers", "Preparation", "Review & filing", "Firm"] as const;
 const EDITABLE = ["Preparer", "Reviewer"] as const;
 
 function Tick({ on }: { on: boolean }) {

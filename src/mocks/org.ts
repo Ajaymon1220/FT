@@ -58,7 +58,7 @@ export const members: Record<string, Member[]> = {
 
 export const teams: Team[] = [
   { id: "t-ind", workspaceId: "ws1", name: "Individual Returns", alias: "@individual", description: "1040 preparation for households and sole proprietors.", color: "#1b4d3e", memberIds: ["m-anjali", "m-rihaan"] },
-  { id: "t-review", workspaceId: "ws1", name: "Review Desk", alias: "@review", description: "Final review and sign-off before client approval.", color: "#1f4e8c", memberIds: [ME, "m-karan"] },
+  { id: "t-review", workspaceId: "ws1", name: "Review Desk", alias: "@review", description: "Final review and sign-off before customer approval.", color: "#1f4e8c", memberIds: [ME, "m-karan"] },
   { id: "t-biz", workspaceId: "ws2", name: "Business Returns", alias: "@business", description: "1065, 1120 and 1120-S engagements.", color: "#c2570c", memberIds: ["m-chloe", "m-aiden"] },
 ];
 

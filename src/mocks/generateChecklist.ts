@@ -49,7 +49,7 @@ export function generateChecklist({ returnType, filingStatus, hasPriorYear, note
     }
     if (has("freelance", "self-employ", "consult", "side business", "1099-nec", "contractor")) {
       add(group("Self-Employment (Schedule C)", "Income and expenses for freelance work.", true),
-        ["1099-NEC", "Clients who paid $600 or more", true, [money("Box 1", "Nonemployee Compensation", "18200.00")]],
+        ["1099-NEC", "Customers who paid $600 or more", true, [money("Box 1", "Nonemployee Compensation", "18200.00")]],
         ["P&L", "Income and expense summary for the year", true, [money("Line 31", "Net profit", "12950.00")]]);
     }
     if (has("home", "house", "mortgage", "condo")) {

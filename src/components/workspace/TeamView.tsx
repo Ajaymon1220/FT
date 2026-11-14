@@ -67,7 +67,7 @@ export function TeamView({ clients }: { clients: Client[] }) {
 
   const activeCount = clients.filter((c) => c.status !== "Pushed").length;
   const overdueCount = clients.filter(late).length;
-  const onClient = clients.filter((c) => stageOf(c.status).owner === "Client").length;
+  const onClient = clients.filter((c) => stageOf(c.status).owner === "Customer").length;
   const unassigned = clients.filter((c) => !(assignments[c.id]?.memberIds.length)).length;
 
   return (
@@ -79,7 +79,7 @@ export function TeamView({ clients }: { clients: Client[] }) {
           <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted">
             <span><span className="tnum font-medium text-fg">{activeCount}</span> active</span>
             <span className={overdueCount ? "text-destructive" : ""}><span className="tnum font-medium">{overdueCount}</span> overdue</span>
-            <span><span className="tnum font-medium text-fg">{onClient}</span> waiting on clients</span>
+            <span><span className="tnum font-medium text-fg">{onClient}</span> waiting on customers</span>
             {unassigned > 0 && <span className="text-status-pending-fg"><span className="tnum font-medium">{unassigned}</span> unassigned</span>}
           </p>
         </div>
@@ -104,14 +104,14 @@ export function TeamView({ clients }: { clients: Client[] }) {
       {/* ---- Important clients ---- */}
       <section aria-labelledby="important-h" className="flex flex-col gap-3">
         <h2 id="important-h" className={`${sectionTitle} flex items-center gap-2`}>
-          <Star size={16} className="fill-status-invited-fg text-status-invited-fg" aria-hidden /> Important clients
+          <Star size={16} className="fill-status-invited-fg text-status-invited-fg" aria-hidden /> Important customers
           <span className="tnum text-sm font-normal text-muted">{important.length}</span>
         </h2>
         <div className={`${card} overflow-x-auto`}>
           <table className="w-full min-w-[920px] text-left text-sm">
             <thead className="bg-surface-muted text-muted">
               <tr className="[&>th]:px-3 [&>th]:py-2.5 [&>th]:font-medium">
-                <th>Client</th><th>Stage</th><th>Preparer</th><th>Reviewer</th><th className="w-40">Checklist</th><th>Due</th>
+                <th>Customer</th><th>Stage</th><th>Preparer</th><th>Reviewer</th><th className="w-40">Checklist</th><th>Due</th>
               </tr>
             </thead>
             <tbody>
@@ -135,7 +135,7 @@ export function TeamView({ clients }: { clients: Client[] }) {
                   </tr>
                 );
               })}
-              {important.length === 0 && <tr><td colSpan={6} className="px-3 py-8 text-center text-muted">No urgent or high-priority clients match these filters.</td></tr>}
+              {important.length === 0 && <tr><td colSpan={6} className="px-3 py-8 text-center text-muted">No urgent or high-priority customers match these filters.</td></tr>}
             </tbody>
           </table>
         </div>
@@ -145,7 +145,7 @@ export function TeamView({ clients }: { clients: Client[] }) {
       <section aria-labelledby="team-h" className="flex flex-col gap-3">
         <div className="flex flex-col gap-0.5">
           <h2 id="team-h" className={sectionTitle}>Team</h2>
-          <p className="text-sm text-muted">Who is working on which client. “Needs them” counts clients currently waiting on that person’s step.</p>
+          <p className="text-sm text-muted">Who is working on which customer. “Needs them” counts customers currently waiting on that person’s step.</p>
         </div>
         <div className={`${card} overflow-x-auto`}>
           <table className="w-full min-w-[820px] text-left text-sm">
@@ -179,7 +179,7 @@ export function TeamView({ clients }: { clients: Client[] }) {
                       <td className="text-right">
                         {r.overdue ? <span className="tnum inline-flex items-center gap-1 text-destructive"><AlertTriangle size={12} aria-hidden />{r.overdue}</span> : <span className="tnum text-muted">0</span>}
                       </td>
-                      <td>{r.total ? <span title={`${pct(r.done, r.total)}% of requested documents approved`}><Progress done={r.done} total={r.total} /></span> : <span className="text-xs text-muted">No clients yet</span>}</td>
+                      <td>{r.total ? <span title={`${pct(r.done, r.total)}% of requested documents approved`}><Progress done={r.done} total={r.total} /></span> : <span className="text-xs text-muted">No customers yet</span>}</td>
                     </tr>
                     {expanded && r.clients.map((c) => (
                       <tr key={c.id} className="bg-surface-grey text-sm [&>td]:px-3 [&>td]:py-2">

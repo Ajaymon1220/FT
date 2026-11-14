@@ -79,7 +79,7 @@ export function ImportClients() {
   const preparers = members.filter((m) => userType(m) === "Preparer");
   const reviewers = members.filter((m) => userType(m) === "Reviewer");
   const reading = phase >= 0;
-  const readSteps = [`Opening ${file ?? "backup"}`, `Found ${SAMPLE.length} returns from 2024`, "Matching with clients already in Flowtax", "Reading prior-year forms"];
+  const readSteps = [`Opening ${file ?? "backup"}`, `Found ${SAMPLE.length} returns from 2024`, "Matching with customers already in Flowtax", "Reading prior-year forms"];
 
   // Simulated read: tick through the steps, then build the review list.
   useEffect(() => {
@@ -120,14 +120,14 @@ export function ImportClients() {
     const ids = importClients(selected.map(({ name, returnType, filingStatus, email }) => ({ name, returnType, filingStatus, email: email?.trim() || undefined })), software!.name, wsId, [preparerId, reviewerId].filter(Boolean));
     setResult({ ids, skipped: rows.length - selected.length, noEmail: missingEmail });
     setStep("done");
-    showToast(`${ids.length} clients imported from ${software!.name}.`);
+    showToast(`${ids.length} customers imported from ${software!.name}.`);
   };
 
   if (!canAdd) {
     return (
       <div className="flex min-h-full flex-col bg-surface">
         <FocusHeader current="new" />
-        <p className="px-6 py-10 text-center text-sm text-muted">You don't have access to add or import clients. Ask an admin if you need it. <a href="#workspace" className="text-brand underline">Back to Workspace</a></p>
+        <p className="px-6 py-10 text-center text-sm text-muted">You don't have access to add or import customers. Ask an admin if you need it. <a href="#workspace" className="text-brand underline">Back to Workspace</a></p>
       </div>
     );
   }
@@ -146,9 +146,9 @@ export function ImportClients() {
               </span>
             )}
             <h1 className={title}>
-              {software ? `Bring last year's clients over from ${software.name}` : "Which program are your clients in?"}
+              {software ? `Bring last year's customers over from ${software.name}` : "Which program are your customers in?"}
             </h1>
-            <p className="max-w-2xl text-sm leading-5 text-muted">Upload one backup. We create every client with a checklist built from their prior-year return. Nothing is sent to clients until you invite them.</p>
+            <p className="max-w-2xl text-sm leading-5 text-muted">Upload one backup. We create every customer with a checklist built from their prior-year return. Nothing is sent to customers until you invite them.</p>
 
             <div className="flex flex-col gap-2">
               <button type="button" aria-expanded={otherOpen} onClick={() => setOtherOpen((o) => !o)} className="flex w-fit items-center gap-1 text-sm font-semibold text-brand hover:underline">
@@ -229,7 +229,7 @@ export function ImportClients() {
           {software && (
             <ul className="flex flex-wrap items-center gap-2 text-xs text-muted" aria-label="What comes over">
               <li className="font-medium text-fg">What comes over:</li>
-              {["Names & contact details", "Return type & filing status", "Prior-year forms (W-2, 1099, K-1)", "A draft checklist per client"].map((t) => (
+              {["Names & contact details", "Return type & filing status", "Prior-year forms (W-2, 1099, K-1)", "A draft checklist per customer"].map((t) => (
                 <li key={t} className={`${pill} gap-1 bg-section text-fg`}><Check size={12} className="text-status-prep-fg" />{t}</li>
               ))}
             </ul>
@@ -243,13 +243,13 @@ export function ImportClients() {
           <main className="flex w-full flex-1 flex-col gap-4 px-6 py-6">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <h1 className={title}>We found {rows.length} clients</h1>
+                <h1 className={title}>We found {rows.length} customers</h1>
                 <p className="mt-1 text-sm text-muted">From <span className="text-fg">{file}</span>. Untick anyone you don't want to bring over.</p>
               </div>
               <Button variant="outline" onClick={() => { setStep("upload"); setFile(null); setRows([]); }}>Use a different file</Button>
             </div>
 
-            <div role="tablist" aria-label="Filter clients" className="flex flex-wrap items-center gap-2">
+            <div role="tablist" aria-label="Filter customers" className="flex flex-wrap items-center gap-2">
               {([["all", "All"], ["new", "New"], ["dup", "Already in Flowtax"], ["email", "Needs email"]] as [Filter, string][]).map(([f, label]) => (
                 <button key={f} role="tab" type="button" aria-selected={filter === f} onClick={() => setFilter(f)} disabled={f !== "all" && counts[f] === 0} className={`${chip(filter === f)} disabled:opacity-40`}>
                   {label} <span className="tnum text-xs">{counts[f]}</span>
@@ -262,7 +262,7 @@ export function ImportClients() {
                 <thead className="bg-surface-muted text-left text-muted">
                   <tr className="[&>th]:px-3 [&>th]:py-3 [&>th]:font-medium [&>th]:whitespace-nowrap">
                     <th className="w-10"><input type="checkbox" aria-label="Select all shown" checked={allOn} onChange={() => setRows((rs) => rs.map((r) => (visible.includes(r) ? { ...r, selected: !allOn } : r)))} className="size-4 cursor-pointer rounded accent-brand" /></th>
-                    <th>Client name</th><th>Return type</th><th>From {software.name} (2024)</th><th>Email</th><th>Status</th>
+                    <th>Customer name</th><th>Return type</th><th>From {software.name} (2024)</th><th>Email</th><th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -287,7 +287,7 @@ export function ImportClients() {
                       </td>
                     </tr>
                   ))}
-                  {visible.length === 0 && <tr><td colSpan={6} className="px-3 py-10 text-center text-muted">No clients match this filter.</td></tr>}
+                  {visible.length === 0 && <tr><td colSpan={6} className="px-3 py-10 text-center text-muted">No customers match this filter.</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -313,7 +313,7 @@ export function ImportClients() {
             </div>
             <div className="flex items-center gap-3 pb-1.5">
               <span className="text-sm text-muted"><span className="tnum font-medium text-fg">{selected.length}</span> selected{missingEmail > 0 && <> · <span className="text-status-pending-fg">{missingEmail} without email</span></>}</span>
-              <Button onClick={runImport} disabled={!selected.length}>Import {selected.length} client{selected.length === 1 ? "" : "s"}</Button>
+              <Button onClick={runImport} disabled={!selected.length}>Import {selected.length} customer{selected.length === 1 ? "" : "s"}</Button>
             </div>
           </div>
         </>
@@ -324,14 +324,14 @@ export function ImportClients() {
         <main className="mx-auto flex w-full max-w-3xl flex-col items-center gap-6 px-6 py-12 text-center">
           <div className="flex flex-col items-center gap-3">
             <span className="flex size-12 items-center justify-center rounded-full bg-status-prep-bg"><CheckCircle2 size={24} className="text-status-prep-fg" /></span>
-            <h1 className={title}>{result.ids.length} clients are in Flowtax</h1>
+            <h1 className={title}>{result.ids.length} customers are in Flowtax</h1>
             <p className="max-w-xl text-sm leading-5 text-muted">Imported from {software.name}, each with a draft checklist built from last year's return.{result.skipped > 0 && ` ${result.skipped} skipped.`}</p>
           </div>
 
           <ol className="grid w-full gap-3 text-left sm:grid-cols-3">
             {[
-              { n: 1, title: "Check the checklists", body: "Open each client and adjust what we drafted.", action: <a href={href({ name: "client", clientId: result.ids[0], section: "checklist" })} className="flex items-center gap-1 text-sm font-semibold text-brand">Open first client <ArrowRight size={14} /></a> },
-              { n: 2, title: "Invite clients", body: result.noEmail ? `Add an email for ${result.noEmail} client${result.noEmail > 1 ? "s" : ""} first.` : "Send each client their checklist link.", action: <span className="flex items-center gap-1 text-sm text-muted"><Mail size={14} /> From each checklist</span> },
+              { n: 1, title: "Check the checklists", body: "Open each customer and adjust what we drafted.", action: <a href={href({ name: "client", clientId: result.ids[0], section: "checklist" })} className="flex items-center gap-1 text-sm font-semibold text-brand">Open first customer <ArrowRight size={14} /></a> },
+              { n: 2, title: "Invite customers", body: result.noEmail ? `Add an email for ${result.noEmail} customer${result.noEmail > 1 ? "s" : ""} first.` : "Send each customer their checklist link.", action: <span className="flex items-center gap-1 text-sm text-muted"><Mail size={14} /> From each checklist</span> },
               { n: 3, title: "Track progress", body: "They start in Draft on the board.", action: <button type="button" onClick={() => { try { localStorage.setItem("flowtax-workspace-view", "Board"); } catch { /* storage unavailable */ } go({ name: "workspace" }); }} className="flex items-center gap-1 text-sm font-semibold text-brand"><SquareKanban size={16} /> Open board</button> },
             ].map((s) => (
               <li key={s.n} className={`${card} flex flex-col gap-2`}>
@@ -344,7 +344,7 @@ export function ImportClients() {
           </ol>
 
           <details className="w-full rounded-md border border-line bg-surface text-left">
-            <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-fg">See the {result.ids.length} imported clients</summary>
+            <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-fg">See the {result.ids.length} imported customers</summary>
             <ul className="flex flex-col border-t border-line">
               {result.ids.map((id) => {
                 const c = existing.find((x) => x.id === id);

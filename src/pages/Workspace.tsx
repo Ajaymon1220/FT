@@ -186,12 +186,12 @@ export function Workspace() {
                 className={`flex h-7 items-center gap-2 rounded-3xl border px-3 text-sm ${mine ? "border-brand bg-brand-soft text-brand" : "border-line text-muted"}`}>
                 <UserRound size={16} /> Assigned to me
               </button>
-            : <span title="You see the clients assigned to you" className="flex h-7 items-center gap-2 rounded-3xl bg-surface-grey px-3 text-sm text-muted"><UserRound size={16} /> Your clients</span>}
+            : <span title="You see the customers assigned to you" className="flex h-7 items-center gap-2 rounded-3xl bg-surface-grey px-3 text-sm text-muted"><UserRound size={16} /> Your customers</span>}
         </div>
         <div className="flex items-center gap-1">
           {selected.size > 0 && <span className="mr-2 text-xs text-muted">{selected.size} selected</span>}
-          <button type="button" aria-label="Export clients" className="flex rounded-md border border-line bg-surface p-1.5 hover:bg-surface-grey"><img alt="" src={icons.download} className="size-4" /></button>
-          {canAdd && <Button icon={icons.add} onClick={openAddClient}>Add client</Button>}
+          <button type="button" aria-label="Export customers" className="flex rounded-md border border-line bg-surface p-1.5 hover:bg-surface-grey"><img alt="" src={icons.download} className="size-4" /></button>
+          {canAdd && <Button icon={icons.add} onClick={openAddClient}>Add customer</Button>}
         </div>
       </div>
 
@@ -200,10 +200,10 @@ export function Workspace() {
 
       {activeView === "List" && <>
       <div className="flex-1 overflow-x-auto">
-        <div role="table" aria-label="Clients" className="min-w-[1100px]">
+        <div role="table" aria-label="Customers" className="min-w-[1100px]">
           <div role="row" className="grid border-b border-line" style={{ gridTemplateColumns: cols }}>
-            <div role="columnheader" className="flex items-center justify-center bg-surface-muted"><Checkbox label="Select all clients" checked={allSelected} onChange={toggleAll} /></div>
-            {["Client Name", "Tax Year", "Return Type", "Checklist", "Assignee", "Status", "Due Date", "Last Activity"].map((h) => <div key={h} role="columnheader" className={head}>{h}</div>)}
+            <div role="columnheader" className="flex items-center justify-center bg-surface-muted"><Checkbox label="Select all customers" checked={allSelected} onChange={toggleAll} /></div>
+            {["Customer Name", "Tax Year", "Return Type", "Checklist", "Assignee", "Status", "Due Date", "Last Activity"].map((h) => <div key={h} role="columnheader" className={head}>{h}</div>)}
             <div role="columnheader" className={`${head} justify-center border-l border-line`}>Actions</div>
           </div>
 
@@ -243,12 +243,12 @@ export function Workspace() {
 
           {rows.length === 0 && clients.length === 0 && (
             <div className="mx-auto flex max-w-sm flex-col items-center gap-3 px-6 py-16 text-center">
-              <h2 className="text-base font-medium text-fg">No clients in {wsName} yet</h2>
-              <p className="text-sm text-muted">{canAdd ? "Add your first client or import last year's, then assign them to your team." : "Clients will show up here once they're added and assigned to you."}</p>
-              {canAdd && <Button icon={icons.add} onClick={openAddClient}>Add client</Button>}
+              <h2 className="text-base font-medium text-fg">No customers in {wsName} yet</h2>
+              <p className="text-sm text-muted">{canAdd ? "Add your first customer or import last year's, then assign them to your team." : "Customers will show up here once they're added and assigned to you."}</p>
+              {canAdd && <Button icon={icons.add} onClick={openAddClient}>Add customer</Button>}
             </div>
           )}
-          {rows.length === 0 && clients.length > 0 && <p className="px-6 py-10 text-center text-sm text-muted">No clients match these filters. Clear the search or filters above.</p>}
+          {rows.length === 0 && clients.length > 0 && <p className="px-6 py-10 text-center text-sm text-muted">No customers match these filters. Clear the search or filters above.</p>}
         </div>
       </div>
 
@@ -272,7 +272,7 @@ export function Workspace() {
       </>}
 
       {activeView !== "List" && filtered.length === 0 && clients.length > 0 && (
-        <p className="px-6 pb-6 text-center text-sm text-muted">No clients match these filters. Clear the search or filters above.</p>
+        <p className="px-6 pb-6 text-center text-sm text-muted">No customers match these filters. Clear the search or filters above.</p>
       )}
     </div>
   );

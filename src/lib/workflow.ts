@@ -5,7 +5,7 @@ import type { Client, ClientStatus, Priority } from "@/mocks/clients";
 import type { Member } from "@/mocks/org";
 import { can, userType } from "@/store/org";
 
-export type StageOwner = "Preparer" | "Client" | "Reviewer" | "Admin" | "Done";
+export type StageOwner = "Preparer" | "Customer" | "Reviewer" | "Admin" | "Done";
 
 export interface StageDef {
   status: ClientStatus;
@@ -20,8 +20,8 @@ export interface StageDef {
 
 export const STAGES: StageDef[] = [
   { status: "Draft", caption: "Preparer builds the checklist", owner: "Preparer", pill: "bg-status-draft-bg text-fg", dot: "bg-muted" },
-  { status: "Client Invited", caption: "Checklist shared with client", owner: "Client", pill: "bg-status-invited-bg text-status-invited-fg", dot: "bg-status-invited-fg" },
-  { status: "Pending Docs", caption: "Client uploading documents", owner: "Client", pill: "bg-status-pending-bg text-status-pending-fg", dot: "bg-status-pending-fg" },
+  { status: "Customer Invited", caption: "Checklist shared with customer", owner: "Customer", pill: "bg-status-invited-bg text-status-invited-fg", dot: "bg-status-invited-fg" },
+  { status: "Pending Docs", caption: "Customer uploading documents", owner: "Customer", pill: "bg-status-pending-bg text-status-pending-fg", dot: "bg-status-pending-fg" },
   { status: "Prep Started", caption: "Preparer approves docs, prepares worksheet", owner: "Preparer", pill: "bg-status-prep-bg text-status-prep-fg", dot: "bg-status-prep-fg" },
   { status: "Ready for Review", caption: "Reviewer checking the work", owner: "Reviewer", pill: "bg-status-review-bg text-status-review-fg", dot: "bg-status-review-fg" },
   { status: "Approved", caption: "Reviewer approved · admin pushes it", owner: "Admin", pill: "bg-sage text-brand", dot: "bg-ai-border" },
@@ -57,7 +57,7 @@ export function clientTeam(memberIds: string[] | undefined, members: Member[]) {
 /** Is this client currently waiting on this person to act? */
 export function waitingOn(member: Member, status: ClientStatus) {
   const owner = stageOf(status).owner;
-  return owner !== "Client" && owner !== "Done" && owner === userType(member);
+  return owner !== "Customer" && owner !== "Done" && owner === userType(member);
 }
 
 /** Approving and pushing need those permissions (Reviewer / Admin by default); anyone can move work earlier. */

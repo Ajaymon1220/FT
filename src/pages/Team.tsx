@@ -24,7 +24,7 @@ function ReadOnlyNote({ children }: { children: string }) {
 const USER_TYPES: UserType[] = ["Admin", "Preparer", "Reviewer"];
 const TYPE_HELP: Record<UserType, string> = {
   Admin: "Monitors the team, manages people and settings, and pushes approved returns to tax software.",
-  Preparer: "Sets up client checklists, approves documents and prepares the worksheet for review.",
+  Preparer: "Sets up customer checklists, approves documents and prepares the worksheet for review.",
   Reviewer: "Reviews prepared worksheets, then approves them or sends them back with changes.",
 };
 const INVITE_AS: Record<UserType, [Role, Title]> = { Admin: ["Admin", "Admin staff"], Preparer: ["Member", "Preparer"], Reviewer: ["Member", "Reviewer"] };
@@ -129,7 +129,7 @@ function People() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-xl font-medium text-fg">Manage people</h1>
-          <p className="mt-1 text-sm text-muted">Everyone in {ws.name}. Assign them to clients from the Workspace list.</p>
+          <p className="mt-1 text-sm text-muted">Everyone in {ws.name}. Assign them to customers from the Workspace list.</p>
         </div>
       </div>
 
@@ -162,7 +162,7 @@ function People() {
       <div className="overflow-x-auto rounded-md border border-line">
         <table className="w-full min-w-[980px] text-sm">
           <thead className="bg-surface-muted text-left text-xs text-muted uppercase">
-            <tr>{["Name", "Email", "User type", "Access", "Clients", "Progress", "Last active", ""].map((h) => <th key={h} className="px-3 py-2.5 font-medium">{h}</th>)}</tr>
+            <tr>{["Name", "Email", "User type", "Access", "Customers", "Progress", "Last active", ""].map((h) => <th key={h} className="px-3 py-2.5 font-medium">{h}</th>)}</tr>
           </thead>
           <tbody>
             {list.map((m) => (
@@ -204,7 +204,7 @@ function People() {
       {accessFor && <MemberAccessPanel member={accessFor} onClose={() => setAccessFor(null)} />}
       {progressFor && <MemberProgress member={progressFor} onClose={() => setProgressFor(null)} />}
       {removing && (
-        <Modal title={`Remove ${removing.name}?`} description={`They lose access to ${ws.name} and are unassigned from ${byMember[removing.id] ?? 0} client${byMember[removing.id] === 1 ? "" : "s"} and their teams. Their past activity stays in each client's history.`}
+        <Modal title={`Remove ${removing.name}?`} description={`They lose access to ${ws.name} and are unassigned from ${byMember[removing.id] ?? 0} customer${byMember[removing.id] === 1 ? "" : "s"} and their teams. Their past activity stays in each customer's history.`}
           onClose={() => setRemoving(null)} width={460}
           footer={<><Button variant="outline" onClick={() => setRemoving(null)}>Cancel</Button>
             <button type="button" onClick={() => { removeMember(removing.id); showToast(`${removing.name} removed from ${ws.name}`); setRemoving(null); }} className="rounded-md bg-destructive px-3 py-1 text-sm text-white hover:bg-destructive/90">Remove</button></>}>
@@ -235,7 +235,7 @@ function TeamModal({ team, onClose }: { team?: TeamT; onClose: () => void }) {
   };
 
   return (
-    <Modal title={team ? `${team.name} members` : "Create Team"} description={team ? undefined : "Use Teams to group people you assign to clients together, like a preparer and their reviewer."}
+    <Modal title={team ? `${team.name} members` : "Create Team"} description={team ? undefined : "Use Teams to group people you assign to customers together, like a preparer and their reviewer."}
       onClose={onClose} width={500} footer={<><Button variant="outline" onClick={onClose}>Cancel</Button><Button onClick={save}>{team ? "Save" : "Create Team"}</Button></>}>
       <div className="flex flex-col gap-4">
         {!team && (
@@ -314,12 +314,12 @@ function TeamDrawer({ team, onClose, onEdit }: { team: TeamT; onClose: () => voi
           </ul>
         </section>
         <section>
-          <h3 className="mb-2 text-sm font-medium text-fg">Clients · {owned.length}</h3>
+          <h3 className="mb-2 text-sm font-medium text-fg">Customers · {owned.length}</h3>
           <ul className="flex flex-col">
             {owned.map((c) => (
               <li key={c.id}><a href={`#client-${c.id}-checklist`} className="flex items-center justify-between border-b border-line py-2 text-sm hover:text-brand">{c.name}<span className="text-xs text-muted">{c.returnType} · {c.status}</span></a></li>
             ))}
-            {owned.length === 0 && <li className="py-3 text-sm text-muted">Assign this team to a client from the Assignee column in Workspace.</li>}
+            {owned.length === 0 && <li className="py-3 text-sm text-muted">Assign this team to a customer from the Assignee column in Workspace.</li>}
           </ul>
         </section>
       </aside>
@@ -349,7 +349,7 @@ function Teams() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-xl font-medium text-fg">Teams</h1>
-          <p className="mt-1 text-sm text-muted">Group people so you can assign a whole team to a client.</p>
+          <p className="mt-1 text-sm text-muted">Group people so you can assign a whole team to a customer.</p>
         </div>
         {!isAdmin && <ReadOnlyNote>Only admins can create or change teams.</ReadOnlyNote>}
         {isAdmin && teams.length > 0 && <Button icon={undefined} onClick={() => setCreating(true)}><span className="flex items-center gap-1.5"><Plus size={14} /> Create Team</span></Button>}
@@ -359,14 +359,14 @@ function Teams() {
         <div className="mx-auto mt-10 flex max-w-sm flex-col items-center gap-3 text-center">
           <span className="flex size-14 items-center justify-center rounded-xl border border-line"><Users size={22} className="text-muted" /></span>
           <h2 className="text-base font-medium text-fg">No teams yet</h2>
-          <p className="text-sm text-muted">{isAdmin ? "Create a team to group preparers and reviewers, then assign it to clients in one click." : `${ws.name} has no teams yet. Ask an admin to create one.`}</p>
+          <p className="text-sm text-muted">{isAdmin ? "Create a team to group preparers and reviewers, then assign it to customers in one click." : `${ws.name} has no teams yet. Ask an admin to create one.`}</p>
           {isAdmin && <Button onClick={() => setCreating(true)}>Create a Team</Button>}
         </div>
       ) : (
         <div className="overflow-x-auto rounded-md border border-line">
           <table className="w-full min-w-[720px] text-sm">
             <thead className="bg-surface-muted text-left text-xs text-muted uppercase">
-              <tr>{["Name", "Alias", "Members", "Clients", ""].map((h) => <th key={h} className="px-3 py-2.5 font-medium">{h}</th>)}</tr>
+              <tr>{["Name", "Alias", "Members", "Customers", ""].map((h) => <th key={h} className="px-3 py-2.5 font-medium">{h}</th>)}</tr>
             </thead>
             <tbody>
               {teams.map((t) => {
@@ -401,7 +401,7 @@ function Teams() {
       {editing && <TeamModal team={editing} onClose={() => setEditing(null)} />}
       {viewTeam && <TeamDrawer team={viewTeam} onClose={() => setViewing(null)} onEdit={isAdmin ? () => setEditing(viewTeam) : undefined} />}
       {deleting && (
-        <Modal title={`Delete ${deleting.name}?`} description={`It's removed from ${byTeam[deleting.id] ?? 0} client${byTeam[deleting.id] === 1 ? "" : "s"}. Its people stay in ${ws.name} and keep their client assignments.`}
+        <Modal title={`Delete ${deleting.name}?`} description={`It's removed from ${byTeam[deleting.id] ?? 0} customer${byTeam[deleting.id] === 1 ? "" : "s"}. Its people stay in ${ws.name} and keep their customer assignments.`}
           onClose={() => setDeleting(null)} width={460}
           footer={<><Button variant="outline" onClick={() => setDeleting(null)}>Cancel</Button>
             <button type="button" onClick={() => { deleteTeam(deleting.id); showToast(`${deleting.name} deleted. Its people stay in the workspace.`); if (viewing === deleting.id) setViewing(null); setDeleting(null); }} className="rounded-md bg-destructive px-3 py-1 text-sm text-white hover:bg-destructive/90">Delete team</button></>}>

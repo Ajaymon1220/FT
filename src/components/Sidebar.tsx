@@ -37,8 +37,8 @@ function GettingStarted() {
       { label: "Create a Workspace", done: true, to: undefined },
       { label: "Invite your team", done: members.length > 1, to: "people" as const },
       { label: "Create a team", done: allTeams.some((t) => t.workspaceId === wsId), to: "teams" as const },
-      { label: "Add your first client", done: wsClients.length > 0, to: "new-client" as const },
-      { label: "Assign a client", done: wsClients.some((c) => (assignments[c.id]?.memberIds.length ?? 0) > 0), to: "workspace" as const },
+      { label: "Add your first customer", done: wsClients.length > 0, to: "new-client" as const },
+      { label: "Assign a customer", done: wsClients.some((c) => (assignments[c.id]?.memberIds.length ?? 0) > 0), to: "workspace" as const },
     ];
   }, [members, allTeams, assignments, clients, wsId]);
 

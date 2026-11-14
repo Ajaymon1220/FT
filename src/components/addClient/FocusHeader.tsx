@@ -17,7 +17,7 @@ export function FocusHeader({ current, right }: { current?: "new" | "import"; ri
           <X size={16} />
         </button>
         <span className="h-5 w-px bg-line" aria-hidden />
-        <span className="truncate text-base leading-[22px] font-medium tracking-[-0.18px] text-fg">Add client</span>
+        <span className="truncate text-base leading-[22px] font-medium tracking-[-0.18px] text-fg">Add customer</span>
         <span className="hidden truncate text-sm text-muted md:inline">· {ws.name}</span>
       </div>
       <div>{current && <AddClientSwitch current={current} />}</div>
@@ -34,8 +34,8 @@ export function AddClientSwitch({ current }: { current: "new" | "import" }) {
   // Same pattern as the Workspace filter chips: 28px, rounded-3xl, active = brand-soft.
   const item = (on: boolean) => `flex h-7 items-center gap-2 rounded-3xl border px-3 text-sm whitespace-nowrap ${on ? "border-brand bg-brand-soft text-brand" : "border-line text-muted hover:text-fg"}`;
   return (
-    <nav aria-label="How to add clients" className="flex items-center gap-2">
-      <a href="#new-client" aria-current={current === "new" ? "page" : undefined} className={item(current === "new")}><UserPlus size={16} /> <span className="hidden sm:inline">New client</span><span className="sm:hidden">New</span></a>
+    <nav aria-label="How to add customers" className="flex items-center gap-2">
+      <a href="#new-client" aria-current={current === "new" ? "page" : undefined} className={item(current === "new")}><UserPlus size={16} /> <span className="hidden sm:inline">New customer</span><span className="sm:hidden">New</span></a>
       {canImport && (
         <a href="#import" aria-current={current === "import" ? "page" : undefined} className={item(current === "import")}>
           <Download size={16} /> <span className="hidden sm:inline">Import{software ? ` from ${software}` : ""}</span><span className="sm:hidden">Import</span>

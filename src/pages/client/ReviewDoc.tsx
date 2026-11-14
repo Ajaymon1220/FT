@@ -115,7 +115,7 @@ function CommentsPanel({ clientId, doc, onClose }: { clientId: string; doc: Chec
             <div key={c.id} className={`rounded-lg p-2 ${c.fromClient ? "bg-surface" : ""}`}>
               <p className={`flex items-center gap-2 text-sm text-fg ${c.fromClient ? "" : "justify-end"}`}>
                 <span className="flex size-6 items-center justify-center rounded-full bg-status-prep-bg text-[10px] text-status-prep-fg">{initials(c.author)}</span>
-                {c.author}{c.fromClient && " (Client)"} <span className="text-xs text-muted">{c.at}</span>
+                {c.author}{c.fromClient && " (Customer)"} <span className="text-xs text-muted">{c.at}</span>
               </p>
               <p className="mt-2 text-sm text-fg">{c.text}</p>
             </div>
@@ -315,11 +315,11 @@ export function ReviewDoc({ clientId, itemId }: { clientId: string; itemId: stri
                 {canRequest && <div className="mt-2 flex flex-wrap justify-center gap-2">
                   <Button variant="outline" disabled={!engagement.invited} title={engagement.invited ? undefined : "Send the invitation first"}
                     onClick={() => requestDocument(clientId, doc.id, doc.note ?? `Please upload ${doc.name}`, engagement.reminders)}>
-                    Request from client
+                    Request from customer
                   </Button>
                   <Button onClick={() => fileRef.current?.click()}><span className="flex items-center gap-1.5"><Upload size={14} /> Upload on their behalf</span></Button>
                 </div>}
-                {!engagement.invited && <p className="text-xs text-muted">The client hasn't been invited yet. You can still add documents you already have.</p>}
+                {!engagement.invited && <p className="text-xs text-muted">The customer hasn't been invited yet. You can still add documents you already have.</p>}
                 <input ref={fileRef} id="review-upload" type="file" accept=".pdf,.jpeg,.jpg,.png" className="hidden"
                   onChange={(e) => { const f = e.target.files?.[0]; if (f) attachDocument(clientId, doc.id, f.name); e.target.value = ""; }} />
               </div>
@@ -355,7 +355,7 @@ export function ReviewDoc({ clientId, itemId }: { clientId: string; itemId: stri
               </div>
             )}
             {doc.status === "Rejected" && doc.rejectReason && (
-              <p className="mx-auto mt-3 max-w-[1132px] rounded-md bg-status-rejected-bg px-3 py-2 text-sm text-status-rejected-fg">Rejected: {doc.rejectReason}. The client has been asked to replace this file.</p>
+              <p className="mx-auto mt-3 max-w-[1132px] rounded-md bg-status-rejected-bg px-3 py-2 text-sm text-status-rejected-fg">Rejected: {doc.rejectReason}. The customer has been asked to replace this file.</p>
             )}
           </div>
         </section>
@@ -416,7 +416,7 @@ export function ReviewDoc({ clientId, itemId }: { clientId: string; itemId: stri
       </div>
 
       {rejecting && (
-        <Modal title="Mark as rejected?" description="The client sees this reason and is asked to upload a replacement." onClose={() => setRejecting(false)}
+        <Modal title="Mark as rejected?" description="The customer sees this reason and is asked to upload a replacement." onClose={() => setRejecting(false)}
           footer={<><Button variant="outline" onClick={() => setRejecting(false)}>Cancel</Button><Button onClick={reject}>Reject document</Button></>}>
           <Label htmlFor="reject-reason">Reason</Label>
           <select id="reject-reason" value={reason} onChange={(e) => setReason(e.target.value)} className={inputCls}>

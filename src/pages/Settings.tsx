@@ -31,7 +31,7 @@ export function Settings() {
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="flex flex-col gap-1">
               <h2 id="sw-h" className="text-base leading-[22px] font-medium text-fg">Tax filing software</h2>
-              <p className="text-sm text-muted">Where {ws.name} files returns. Admins push approved returns here. To bring clients over from it, use <b className="font-medium text-fg">Add client → Import</b> in the Workspace.</p>
+              <p className="text-sm text-muted">Where {ws.name} files returns. Admins push approved returns here. To bring customers over from it, use <b className="font-medium text-fg">Add customer → Import</b> in the Workspace.</p>
             </div>
             {!canSettings && <span className="flex items-center gap-1 text-xs text-muted"><Lock size={12} /> Only admins can change this</span>}
           </div>
@@ -58,7 +58,7 @@ export function Settings() {
           <div className="flex flex-wrap items-end justify-between gap-2 pt-2">
             <div className="flex flex-col gap-1">
               <h3 className="text-sm font-medium text-fg">Who can do what</h3>
-              <p className="text-xs text-muted">Recommended defaults come from how firms split the work: preparers handle all client work, reviewers check and approve. {isAdmin ? "Switch a permission to change it for everyone with that user type." : ""}</p>
+              <p className="text-xs text-muted">Recommended defaults come from how firms split the work: preparers handle all customer work, reviewers check and approve. {isAdmin ? "Switch a permission to change it for everyone with that user type." : ""}</p>
             </div>
             <span className="flex gap-2 text-xs text-muted">{TYPES.map((t) => <span key={t} className="rounded bg-surface-grey px-2 py-0.5">{t} <span className="tnum text-fg">{members.filter((m) => m.role !== "Guest" && userType(m) === t).length}</span></span>)}</span>
           </div>

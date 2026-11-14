@@ -49,7 +49,7 @@ export function CreateWorkspaceModal({ onClose }: { onClose: () => void }) {
           {step === 0 && (
             <div className="mt-4 flex flex-col gap-5">
               <h2 className="text-2xl font-medium text-fg">Name your Workspace</h2>
-              <p className="-mt-3 text-sm text-muted">A workspace holds one firm's clients, people and teams. You can switch between workspaces at any time.</p>
+              <p className="-mt-3 text-sm text-muted">A workspace holds one firm's customers, people and teams. You can switch between workspaces at any time.</p>
               <div className="flex items-center gap-3">
                 <WorkspaceMark name={name || "W"} color={color} size={44} />
                 <input id="ws-name" autoFocus value={name} onChange={(e) => { setName(e.target.value); setError(""); }} onKeyDown={(e) => e.key === "Enter" && next()}
@@ -77,14 +77,14 @@ export function CreateWorkspaceModal({ onClose }: { onClose: () => void }) {
                   <option>Member</option><option>Admin</option><option>Guest</option>
                 </select>
               </label>
-              <p className="w-fit rounded bg-status-prep-bg px-2 py-1 text-xs text-status-prep-fg">Preparers and reviewers can be assigned to clients once they accept.</p>
+              <p className="w-fit rounded bg-status-prep-bg px-2 py-1 text-xs text-status-prep-fg">Preparers and reviewers can be assigned to customers once they accept.</p>
             </div>
           )}
 
           {step === 2 && (
             <div className="mt-4 flex flex-col gap-4">
               <h2 className="text-2xl font-medium text-fg">Create your first team</h2>
-              <p className="-mt-2 text-sm text-muted">Teams group people so you can assign a whole team to a client, like “Individual Returns” or “Review Desk”.</p>
+              <p className="-mt-2 text-sm text-muted">Teams group people so you can assign a whole team to a customer, like “Individual Returns” or “Review Desk”.</p>
               <input id="ws-team" autoFocus value={teamName} onChange={(e) => setTeamName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && next()}
                 placeholder="Team name (optional)" className="h-11 rounded-md border border-line px-3 text-base outline-none focus:border-brand" />
             </div>

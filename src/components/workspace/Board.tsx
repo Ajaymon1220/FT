@@ -55,7 +55,7 @@ function Card({ client, onMove, onPush, dragging, onDragStart, onDragEnd }: {
   const team = clientTeam(ids, members);
   const owner = stageOf(client.status).owner;
   const first = (list: { name: string }[], fallback: string) => list.map((m) => m.name.split(" ")[0]).join(", ") || fallback;
-  const waiting = owner === "Client" ? "Client" : owner === "Preparer" ? first(team.preparers, "Preparer") : owner === "Reviewer" ? first(team.reviewers, "Reviewer") : owner === "Admin" ? first(team.admins, "Admin") : null;
+  const waiting = owner === "Customer" ? "Customer" : owner === "Preparer" ? first(team.preparers, "Preparer") : owner === "Reviewer" ? first(team.reviewers, "Reviewer") : owner === "Admin" ? first(team.admins, "Admin") : null;
 
   return (
     <article
@@ -102,7 +102,7 @@ function Column({ stage, clients, draggingId, setDraggingId, move, onPush }: {
 }) {
   const [over, setOver] = useState(false);
   return (
-    <section aria-label={`${stage.status}, ${clients.length} clients`}
+    <section aria-label={`${stage.status}, ${clients.length} customers`}
       onDragOver={(e) => { if (!draggingId) return; e.preventDefault(); e.dataTransfer.dropEffect = "move"; setOver(true); }}
       onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOver(false); }}
       onDrop={(e) => { e.preventDefault(); setOver(false); const id = e.dataTransfer.getData("text/plain"); if (id) move(id, stage.status); }}
@@ -124,10 +124,10 @@ function Column({ stage, clients, draggingId, setDraggingId, move, onPush }: {
           <Card key={c.id} client={c} dragging={draggingId === c.id} onMove={(to) => move(c.id, to)} onPush={onPush && stage.status === "Approved" ? () => onPush(c.id) : undefined}
             onDragStart={() => setDraggingId(c.id)} onDragEnd={() => setDraggingId(null)} />
         ))}
-        {clients.length === 0 && <p className="rounded-lg border border-dashed border-line px-3 py-6 text-center text-xs text-muted">Drop a client here</p>}
+        {clients.length === 0 && <p className="rounded-lg border border-dashed border-line px-3 py-6 text-center text-xs text-muted">Drop a customer here</p>}
         {stage.status === "Draft" && (
           <button type="button" onClick={() => useUi.getState().openAddClient()} className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-muted hover:bg-surface hover:text-fg">
-            <Plus size={14} /> Add client
+            <Plus size={14} /> Add customer
           </button>
         )}
       </div>
@@ -156,7 +156,7 @@ export function Board({ clients }: { clients: Client[] }) {
   };
 
   return (
-    <div className="flex flex-1 gap-3 overflow-x-auto px-6 pt-1 pb-6" role="region" aria-label="Clients board">
+    <div className="flex flex-1 gap-3 overflow-x-auto px-6 pt-1 pb-6" role="region" aria-label="Customers board">
       {STAGES.map((stage) => (
         <Column key={stage.status} stage={stage} clients={clients.filter((c) => c.status === stage.status)}
           draggingId={draggingId} setDraggingId={setDraggingId} move={move} onPush={isAdmin ? setPushing : undefined} />

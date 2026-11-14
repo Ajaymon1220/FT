@@ -98,7 +98,7 @@ function ClientPanel({ clientId, section }: { clientId: string; section: ClientS
     <div className="flex w-full shrink-0 flex-col gap-3 border-b border-line bg-surface-grey pb-3 md:h-full md:w-[200px] md:border-r md:border-b-0">
       <ClientSwitcher clientId={clientId} section={section} />
       <div className="flex flex-1 flex-col justify-between gap-3 px-2">
-        <nav aria-label="Client" className="flex gap-1 md:flex-col">
+        <nav aria-label="Customer" className="flex gap-1 md:flex-col">
           {sections.map((s) => {
             const active = s.id === section;
             return (
@@ -159,7 +159,7 @@ export function ClientShell({ clientId, section, children }: { clientId: string;
       <Rail />
       <ClientPanel clientId={clientId} section={section} />
       <main className="flex min-w-0 flex-1 flex-col overflow-y-auto bg-surface">
-        <ClientTopBar clientName={client?.name ?? "Client"} clientId={clientId} />
+        <ClientTopBar clientName={client?.name ?? "Customer"} clientId={clientId} />
         {children}
       </main>
     </div>

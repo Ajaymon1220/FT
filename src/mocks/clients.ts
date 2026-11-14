@@ -1,4 +1,4 @@
-export type ClientStatus = "Draft" | "Client Invited" | "Pending Docs" | "Prep Started" | "Ready for Review" | "Approved" | "Pushed";
+export type ClientStatus = "Draft" | "Customer Invited" | "Pending Docs" | "Prep Started" | "Ready for Review" | "Approved" | "Pushed";
 export type Priority = "Urgent" | "High" | "Normal" | "Low";
 
 export interface Client {
@@ -27,7 +27,7 @@ export interface Client {
 
 export const clients: Client[] = [
   { id: "c1", name: "Marci Fumons", tag: "Important", priority: "Urgent", taxYear: 2025, returnType: "1040", filingStatus: "MFJ", checklistDone: 0, checklistTotal: 7, reminderSet: true, status: "Draft", lastActivity: "25/11/2025", email: "marci@example.com" },
-  { id: "c2", name: "Leo Mendez", taxYear: 2025, returnType: "1065", checklistDone: 0, checklistTotal: 7, status: "Client Invited", lastActivity: "26/11/2025" },
+  { id: "c2", name: "Leo Mendez", taxYear: 2025, returnType: "1065", checklistDone: 0, checklistTotal: 7, status: "Customer Invited", lastActivity: "26/11/2025" },
   { id: "c3", name: "Sara Pritchard", priority: "High", taxYear: 2025, returnType: "1040", filingStatus: "HOH", checklistDone: 3, checklistTotal: 7, status: "Pending Docs", lastActivity: "27/11/2025" },
   { id: "c4", name: "Smith Consulting, Inc.", priority: "High", taxYear: 2025, returnType: "1065", checklistDone: 7, checklistTotal: 7, status: "Ready for Review", lastActivity: "28/11/2025" },
   { id: "c5", name: "Jordan & Partners, LLP", priority: "Normal", taxYear: 2025, returnType: "1120s", checklistDone: 6, checklistTotal: 7, status: "Prep Started", lastActivity: "29/11/2025" },
@@ -38,6 +38,6 @@ export const clients: Client[] = [
   // Bay Area Tax Partners (second workspace) — names from the Figma board view.
   { id: "d1", workspaceId: "ws2", name: "Liam Johnson Holdings", priority: "High", taxYear: 2025, returnType: "1120", checklistDone: 2, checklistTotal: 7, status: "Pending Docs", lastActivity: "08/11/2025" },
   { id: "d2", workspaceId: "ws2", name: "Nina Roberts Design, Inc.", taxYear: 2025, returnType: "1120s", checklistDone: 4, checklistTotal: 7, status: "Prep Started", lastActivity: "09/11/2025" },
-  { id: "d3", workspaceId: "ws2", name: "Omar Lewis & Co.", taxYear: 2025, returnType: "1065", checklistDone: 0, checklistTotal: 7, status: "Client Invited", lastActivity: "10/11/2025" },
+  { id: "d3", workspaceId: "ws2", name: "Omar Lewis & Co.", taxYear: 2025, returnType: "1065", checklistDone: 0, checklistTotal: 7, status: "Customer Invited", lastActivity: "10/11/2025" },
   { id: "d4", workspaceId: "ws2", name: "Penny Wong", taxYear: 2025, returnType: "1040", filingStatus: "Single", checklistDone: 5, checklistTotal: 5, status: "Ready for Review", lastActivity: "10/11/2025" },
 ];

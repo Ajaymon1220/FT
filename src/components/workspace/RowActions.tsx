@@ -73,9 +73,9 @@ export function RowActions({ client }: { client: Client }) {
   // Send Request follows the workflow: invite while in Draft, remind while waiting on the client.
   const owner = stageOf(client.status).owner;
   const email = engagement?.invitedEmail ?? client.email;
-  const canRequest = canRequestDocs && (client.status === "Draft" || owner === "Client");
+  const canRequest = canRequestDocs && (client.status === "Draft" || owner === "Customer");
   const sendRequest = () => {
-    if (owner === "Client") return remindClient(client.id);
+    if (owner === "Customer") return remindClient(client.id);
     if (!email) { go({ name: "client", clientId: client.id, section: "checklist" }); return showToast(`Add ${client.name}'s email, then send the checklist request.`); }
     sendInvitation(client.id, email, engagement?.reminders ?? { enabled: false, dueDate: "", everyDays: 7 });
   };
@@ -102,21 +102,21 @@ export function RowActions({ client }: { client: Client }) {
           className="fixed z-40 flex flex-col items-center justify-center rounded-md border border-line bg-surface py-2 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1),0_2px_4px_-2px_rgba(0,0,0,0.1)]"
           style={{ top: pos.top, left: pos.left, width: MENU_W }}>
           <Item icon={sendIcon} label="Send Request" onClick={run(sendRequest)} disabled={!canRequest}
-            title={!canRequestDocs ? "You don't have access to client requests" : canRequest ? (owner === "Client" ? "Remind the client about missing documents" : "Share the checklist with the client") : "Documents are in. Nothing to request."} />
+            title={!canRequestDocs ? "You don't have access to customer requests" : canRequest ? (owner === "Customer" ? "Remind the customer about missing documents" : "Share the checklist with the customer") : "Documents are in. Nothing to request."} />
           <Item icon={copyIcon} label="Copy Sharable Link" onClick={run(copyLink)} />
           <img alt="" src={separator} width={208} height={8} className="h-2 w-full shrink-0" />
-          <Item icon={archiveIcon} label="Archive Client" onClick={run(() => archiveClient(client.id))} disabled={!isAdmin} title={adminOnly} />
-          <Item icon={deleteIcon} label="Delete Client" onClick={run(() => setConfirming(true))} disabled={!isAdmin} title={adminOnly} />
+          <Item icon={archiveIcon} label="Archive Customer" onClick={run(() => archiveClient(client.id))} disabled={!isAdmin} title={adminOnly} />
+          <Item icon={deleteIcon} label="Delete Customer" onClick={run(() => setConfirming(true))} disabled={!isAdmin} title={adminOnly} />
         </div>
       )}
 
       {confirming && (
         <Modal title={`Delete ${client.name}?`} width={460} onClose={() => setConfirming(false)}
-          description="This permanently removes the client, their checklist, uploaded documents and assignments. Archive instead if you might need them later."
+          description="This permanently removes the customer, their checklist, uploaded documents and assignments. Archive instead if you might need them later."
           footer={<>
             <Button variant="outline" onClick={() => setConfirming(false)}>Cancel</Button>
             <Button variant="outline" onClick={() => { setConfirming(false); archiveClient(client.id); }}>Archive instead</Button>
-            <button type="button" onClick={() => { setConfirming(false); deleteClient(client.id); }} className="rounded-md bg-destructive px-3 py-1 text-sm text-white hover:bg-destructive/90">Delete client</button>
+            <button type="button" onClick={() => { setConfirming(false); deleteClient(client.id); }} className="rounded-md bg-destructive px-3 py-1 text-sm text-white hover:bg-destructive/90">Delete customer</button>
           </>}>
           <span className="sr-only">Confirm delete</span>
         </Modal>

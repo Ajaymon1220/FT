@@ -102,17 +102,17 @@ export function Dashboard({ onNewClient }: { onNewClient: () => void }) {
       return r?.enabled && isOverdue(r.dueDate, c.status);
     }).length;
     const inReview = clients.filter((c) => c.status === "Ready for Review").length;
-    const onClient = active.filter((c) => STAGES[stageIndex(c.status)].owner === "Client").length;
+    const onClient = active.filter((c) => STAGES[stageIndex(c.status)].owner === "Customer").length;
     const mine = clients.filter((c) => !!me && !!assignments[c.id]?.memberIds.includes(me.id));
     const todo = me ? mine.filter((c) => waitingOn(me, c.status)) : [];
     const done = me ? mine.filter((c) => stageIndex(c.status) > lastOwnedStage(userType(me))) : [];
 
     return {
       stats: [
-        { id: "returns", label: "Total Returns", value: clients.length, note: `${pushed} pushed to tax software`, info: "Every client return in this workspace", critical: false },
-        { id: "active", label: "Active Clients", value: active.length, note: `${onClient} waiting on the client`, info: "Returns not yet pushed to tax software", critical: false },
+        { id: "returns", label: "Total Returns", value: clients.length, note: `${pushed} pushed to tax software`, info: "Every customer return in this workspace", critical: false },
+        { id: "active", label: "Active Customers", value: active.length, note: `${onClient} waiting on the customer`, info: "Returns not yet pushed to tax software", critical: false },
         { id: "bottlenecks", label: "Bottlenecks", value: overdue, note: overdue ? "Past their due date" : `${inReview} waiting on review`, info: "Active returns past the due date set in auto-reminders", critical: overdue > 0 },
-        { id: "yours", label: "Waiting on You", value: todo.length, note: me ? `Your ${userType(me).toLowerCase()} steps` : "Not in this workspace", info: "Your assigned clients at a stage you own", critical: false },
+        { id: "yours", label: "Waiting on You", value: todo.length, note: me ? `Your ${userType(me).toLowerCase()} steps` : "Not in this workspace", info: "Your assigned customers at a stage you own", critical: false },
       ],
       chart: STAGES.map((s) => ({ label: s.status, value: clients.filter((c) => c.status === s.status).length })),
       work: { Todo: todo, Done: done },
@@ -128,9 +128,9 @@ export function Dashboard({ onNewClient }: { onNewClient: () => void }) {
             <p className="text-xl leading-6 font-medium text-fg">
               {greeting()}, {me?.name.split(" ")[0] ?? "there"}.
             </p>
-            <p className="text-sm leading-5 tracking-[-0.16px] text-slate">{canAll ? `Here is a summary of active clients in ${ws.name}.` : "Here is a summary of the clients assigned to you."}</p>
+            <p className="text-sm leading-5 tracking-[-0.16px] text-slate">{canAll ? `Here is a summary of active customers in ${ws.name}.` : "Here is a summary of the customers assigned to you."}</p>
           </div>
-          {canAdd && <Button icon={icons.add} onClick={onNewClient}>Add client</Button>}
+          {canAdd && <Button icon={icons.add} onClick={onNewClient}>Add customer</Button>}
         </section>
 
         <div className="flex flex-col gap-6">
@@ -150,8 +150,8 @@ export function Dashboard({ onNewClient }: { onNewClient: () => void }) {
           {/* Chart + agenda */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className={`${card} flex flex-col gap-4 overflow-hidden`}>
-              <CardTitle info="Clients at each workflow stage">Client Status</CardTitle>
-              {clients.length ? <ClientStatusChart data={chart} /> : <p className="py-16 text-center text-sm text-muted">No clients in {ws.name} yet.</p>}
+              <CardTitle info="Customers at each workflow stage">Customer Status</CardTitle>
+              {clients.length ? <ClientStatusChart data={chart} /> : <p className="py-16 text-center text-sm text-muted">No customers in {ws.name} yet.</p>}
             </div>
             <div className={`${card} flex flex-col items-center gap-6 lg:h-[304px]`}>
               <CardTitle>Agenda</CardTitle>
@@ -180,8 +180,8 @@ export function Dashboard({ onNewClient }: { onNewClient: () => void }) {
                   ))}
                   {work[workTab].length === 0 && (
                     <li className="px-4 py-3 text-sm text-muted">
-                      {workTab === "Todo" ? "Nothing is waiting on you right now." : "None of your clients have moved past your step yet."}{" "}
-                      {clients.some((c) => isMine(c.id)) ? null : <a href="#workspace" className="text-brand underline">See all clients</a>}
+                      {workTab === "Todo" ? "Nothing is waiting on you right now." : "None of your customers have moved past your step yet."}{" "}
+                      {clients.some((c) => isMine(c.id)) ? null : <a href="#workspace" className="text-brand underline">See all customers</a>}
                     </li>
                   )}
                 </ul>
@@ -205,7 +205,7 @@ export function Dashboard({ onNewClient }: { onNewClient: () => void }) {
                         <span className="text-muted">• {typeLabel(m)}</span>
                       </span>
                       <span className="flex h-5 items-center rounded bg-brand-soft px-2 text-[10px] leading-3 text-fg">
-                        {m.status === "Pending" ? "Invite pending" : `${clientCount(m.id)} client${clientCount(m.id) === 1 ? "" : "s"}`}
+                        {m.status === "Pending" ? "Invite pending" : `${clientCount(m.id)} customer${clientCount(m.id) === 1 ? "" : "s"}`}
                       </span>
                     </li>
                     );

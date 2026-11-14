@@ -176,17 +176,17 @@ export type Capability =
   | "viewAllClients" | "addClients" | "assignWork" | "editChecklist" | "reviewDocuments" | "editWorksheet"
   | "viewContactInfo" | "approveReturns" | "pushReturns" | "viewTeamProgress" | "manageTeam" | "manageSettings";
 
-export const CAPABILITIES: { id: Capability; label: string; help: string; group: "Clients" | "Preparation" | "Review & filing" | "Firm" }[] = [
-  { id: "viewAllClients", group: "Clients", label: "See every client in the firm", help: "Without this, people only see clients assigned to them." },
-  { id: "viewContactInfo", group: "Clients", label: "See client contact details", help: "Client email, phone and SSN. Hidden (masked) otherwise." },
-  { id: "addClients", group: "Clients", label: "Add and import clients", help: "Create clients by hand or import them from tax software." },
-  { id: "assignWork", group: "Clients", label: "Assign people to clients", help: "Change who prepares and reviews each client." },
-  { id: "editChecklist", group: "Preparation", label: "Manage checklists and client requests", help: "Edit checklist items, invite clients, request documents and set reminders." },
-  { id: "reviewDocuments", group: "Preparation", label: "Approve or reject client documents", help: "Accept uploads and correct extracted values." },
+export const CAPABILITIES: { id: Capability; label: string; help: string; group: "Customers" | "Preparation" | "Review & filing" | "Firm" }[] = [
+  { id: "viewAllClients", group: "Customers", label: "See every customer in the firm", help: "Without this, people only see customers assigned to them." },
+  { id: "viewContactInfo", group: "Customers", label: "See customer contact details", help: "Customer email, phone and SSN. Hidden (masked) otherwise." },
+  { id: "addClients", group: "Customers", label: "Add and import customers", help: "Create customers by hand or import them from tax software." },
+  { id: "assignWork", group: "Customers", label: "Assign people to customers", help: "Change who prepares and reviews each customer." },
+  { id: "editChecklist", group: "Preparation", label: "Manage checklists and customer requests", help: "Edit checklist items, invite customers, request documents and set reminders." },
+  { id: "reviewDocuments", group: "Preparation", label: "Approve or reject customer documents", help: "Accept uploads and correct extracted values." },
   { id: "editWorksheet", group: "Preparation", label: "Prepare the worksheet", help: "Edit worksheet values and send the return to a reviewer." },
   { id: "approveReturns", group: "Review & filing", label: "Approve returns or request changes", help: "Sign off a prepared return, or send it back to the preparer." },
   { id: "pushReturns", group: "Review & filing", label: "Push approved returns to tax software", help: "Send the approved return to the firm's filing software." },
-  { id: "viewTeamProgress", group: "Firm", label: "View team progress", help: "See each team member's clients, what's waiting on them and what's overdue." },
+  { id: "viewTeamProgress", group: "Firm", label: "View team progress", help: "See each team member's customers, what's waiting on them and what's overdue." },
   { id: "manageTeam", group: "Firm", label: "Invite people and manage teams", help: "Invite or remove people and create or edit teams." },
   { id: "manageSettings", group: "Firm", label: "Change firm settings", help: "Tax filing software and other workspace settings." },
 ];

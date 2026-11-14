@@ -55,7 +55,7 @@ function Screen({ route }: { route: Route }) {
   const canAll = useCan("viewAllClients");
   const canAdd = useCan("addClients");
   const assignedToMe = useOrg((s) => ("clientId" in route && !!me ? !!s.assignments[route.clientId]?.memberIds.includes(me.id) : false));
-  if (!exists) return <p className="p-10 text-sm text-muted">That client doesn't exist. <a className="text-brand underline" href="#workspace">Back to Workspace</a></p>;
+  if (!exists) return <p className="p-10 text-sm text-muted">That customer doesn't exist. <a className="text-brand underline" href="#workspace">Back to Workspace</a></p>;
 
   const isAuthRoute = route.name === "login" || route.name === "signup";
   // Route guard: signed-out users only see login/signup; signed-in users skip them.
@@ -65,8 +65,8 @@ function Screen({ route }: { route: Route }) {
   if (route.name === "signup") return <Signup />;
 
   // Access guard: people limited to their own clients can't open others by link; adding clients needs "addClients".
-  if ("clientId" in route && !canAll && !assignedToMe) return <NoAccess what="This client isn't assigned to you." />;
-  if ((route.name === "add-client" || route.name === "new-client" || route.name === "import") && !canAdd) return <NoAccess what="You don't have access to add or import clients." />;
+  if ("clientId" in route && !canAll && !assignedToMe) return <NoAccess what="This customer isn't assigned to you." />;
+  if ((route.name === "add-client" || route.name === "new-client" || route.name === "import") && !canAdd) return <NoAccess what="You don't have access to add or import customers." />;
 
   if (route.name === "review") return <ReviewDoc clientId={route.clientId} itemId={route.itemId} />;
 
@@ -103,7 +103,7 @@ function Screen({ route }: { route: Route }) {
         {view === "preferences" && <Settings />}
         {view === "clients" && (
           <>
-            <TopBar title="Clients" />
+            <TopBar title="Customers" />
             <p className="px-6 py-10 text-sm text-muted">This screen isn't in the prototype yet. Use Dashboard or Workspace.</p>
           </>
         )}

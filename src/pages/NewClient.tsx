@@ -208,7 +208,7 @@ export function NewClient() {
     for (const k of required) if (!form[k].trim()) e[k] = `${k === "firstName" ? "First name" : k === "lastName" ? "Last name" : k === "entityName" ? `${entity} name` : k === "filingStatus" ? "Filing status" : k === "returnType" ? "Return type" : k === "phone" ? "Phone number" : "Email"} is required`;
     const email = form[emailKey].trim().toLowerCase();
     if (email && !/^\S+@\S+\.\S+$/.test(email)) e[emailKey] = "Enter a valid email address.";
-    else if (email && clients.some((c) => c.email?.toLowerCase() === email)) e[emailKey] = "This email is already used by another client.";
+    else if (email && clients.some((c) => c.email?.toLowerCase() === email)) e[emailKey] = "This email is already used by another customer.";
     if (isPerson && form.phone && digits(form.phone).length !== 10) e.phone = "Phone number must have 10 digits.";
     if (isPerson && form.ssn && digits(form.ssn).length !== 9) e.ssn = "SSN must be exactly 9 digits.";
     if (!isPerson && form.ein && digits(form.ein).length !== 9) e.ein = "EIN must be exactly 9 digits.";
@@ -248,7 +248,7 @@ export function NewClient() {
       {/* Page header */}
       <div className="sticky top-12 z-10 flex flex-wrap items-center justify-between gap-3 border-b border-line bg-surface px-6 py-4">
         <div>
-          <h1 className="text-xl leading-6 font-medium text-fg">New client</h1>
+          <h1 className="text-xl leading-6 font-medium text-fg">New customer</h1>
           <p className="mt-1 text-sm text-muted">Enter basic details and generate a checklist when ready.</p>
         </div>
         <Button onClick={generate} disabled={!ready || building || reading} icon={checklistWhite} title={ready ? undefined : "Fill in the required fields first"} className="py-1.5">
@@ -270,10 +270,10 @@ export function NewClient() {
             <div className="flex flex-col justify-between gap-3 p-1">
               <div>
                 <h2 className="text-xl leading-6 font-medium text-fg">Use prior-year return (recommended)</h2>
-                <p className="mt-1 text-sm text-muted">Upload last year's return to auto-fill client details and build the intake checklist.</p>
+                <p className="mt-1 text-sm text-muted">Upload last year's return to auto-fill customer details and build the intake checklist.</p>
               </div>
               <div className="flex flex-wrap gap-2">
-                {["Auto-fill client data", "Build checklist automatically"].map((t) => (
+                {["Auto-fill customer data", "Build checklist automatically"].map((t) => (
                   <span key={t} className="flex items-center gap-1.5 rounded bg-section px-2 py-1 text-sm text-fg"><CheckCircle2 size={16} className="fill-status-prep-fg text-surface" /> {t}</span>
                 ))}
               </div>
@@ -312,7 +312,7 @@ export function NewClient() {
           )}
         </Section>
 
-        <Section title="Client Information">
+        <Section title="Customer Information">
           {isPerson || !form.returnType ? (
             <>
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -358,7 +358,7 @@ export function NewClient() {
           {autoFilled.size > 0 && <p className="text-xs text-status-prep-fg">{autoFilled.size} fields filled from {priorFile}. Check them before generating.</p>}
           {dupeName && (
             <p className="rounded-md bg-status-invited-bg px-3 py-2 text-sm text-status-invited-fg">
-              A client named {dupeName.name} already exists. Make sure this isn't a duplicate.{" "}
+              A customer named {dupeName.name} already exists. Make sure this isn't a duplicate.{" "}
               <a href={href({ name: "client", clientId: dupeName.id, section: "checklist" })} className="font-medium underline">Open {dupeName.name}</a>
             </p>
           )}
@@ -366,14 +366,14 @@ export function NewClient() {
 
         <Section title="Additional Information">
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-fg">Client Meeting Transcript</span>
+            <span className="text-sm font-medium text-fg">Customer Meeting Transcript</span>
             <div role="tablist" className="flex w-fit rounded-md bg-section p-1">
               {(["Text", "Upload File"] as const).map((t) => (
                 <button key={t} role="tab" type="button" aria-selected={transcriptMode === t} onClick={() => setTranscriptMode(t)} className={`w-28 rounded px-3 py-1 text-sm ${transcriptMode === t ? "bg-surface text-brand shadow-sm" : "text-muted"}`}>{t}</button>
               ))}
             </div>
             {transcriptMode === "Text" ? (
-              <textarea id="nc-transcript" rows={3} value={form.transcript} onChange={(e) => set("transcript", e.target.value)} placeholder="Paste the transcript of your client meeting" className={`${fieldCls()} h-auto resize-y py-2`} />
+              <textarea id="nc-transcript" rows={3} value={form.transcript} onChange={(e) => set("transcript", e.target.value)} placeholder="Paste the transcript of your customer meeting" className={`${fieldCls()} h-auto resize-y py-2`} />
             ) : transcriptFile ? (
               <div className="flex items-center gap-3 rounded-md border border-line px-3 py-2.5 text-sm">
                 <FileText size={16} className="text-muted" /> <span className="flex-1 truncate">{transcriptFile}</span>
@@ -384,7 +384,7 @@ export function NewClient() {
             )}
           </div>
           <Field label={`Key Life Events, Pain Points, or Notes for this Tax Year`} htmlFor="nc-events">
-            <textarea id="nc-events" rows={4} value={form.lifeEvents} onChange={(e) => set("lifeEvents", e.target.value)} placeholder="Example:  Client got married in June, purchased first home in August, started freelance work..." className={`${fieldCls()} h-auto resize-y py-2`} />
+            <textarea id="nc-events" rows={4} value={form.lifeEvents} onChange={(e) => set("lifeEvents", e.target.value)} placeholder="Example:  Customer got married in June, purchased first home in August, started freelance work..." className={`${fieldCls()} h-auto resize-y py-2`} />
           </Field>
           <p className="text-xs text-muted">Mentions like a new home, freelance work, a new baby or stock sales add matching checklist items.</p>
         </Section>
